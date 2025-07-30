@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskFlow - Project Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="max-w-5xl mx-auto p-6">
+    <h1 class="text-4xl font-bold text-center mb-8 text-indigo-700">TaskFlow</h1>
+
+    <!-- Register -->
+    <div id="register-tab" class="tab hidden bg-white p-6 rounded shadow-md">
+      <h2 class="text-2xl font-semibold mb-4">Register</h2>
+      <form id="register-form" class="space-y-4">
+        <input type="text" name="name" placeholder="Name" required class="w-full p-2 border rounded"/>
+        <input type="email" name="email" placeholder="Email" required class="w-full p-2 border rounded"/>
+        <input type="password" name="password" placeholder="Password" autocomplete="new-password" required class="w-full p-2 border rounded"/>
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">Register</button>
+      </form>
+      <p class="mt-4 text-sm text-gray-600">Already have an account? 
+        <button onclick="showTab('login')" class="text-indigo-600 hover:underline">Login here</button>
+      </p>
+    </div>
+
+    <!-- Login -->
+    <div id="login-tab" class="tab hidden bg-white p-6 rounded shadow-md">
+      <h2 class="text-2xl font-semibold mb-4">Login</h2>
+      <form id="login-form" class="space-y-4">
+        <input type="email" name="email" placeholder="Email" required class="w-full p-2 border rounded"/>
+        <input type="password" name="password" placeholder="Password" autocomplete="current-password" required class="w-full p-2 border rounded"/>
+        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Login</button>
+      </form>
+      <p class="mt-4 text-sm text-gray-600">Don’t have an account? 
+        <button onclick="showTab('register')" class="text-indigo-600 hover:underline">Register here</button>
+      </p>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard-tab" class="tab hidden p-4">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">Welcome, <span id="user-name">User</span>!</h2>
+        <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="bg-gray-100 p-3 rounded">
+          <h3 class="font-semibold mb-2">To Do</h3>
+          <div id="todo-tasks" class="min-h-[100px] space-y-2"></div>
+        </div>
+        <div class="bg-gray-100 p-3 rounded">
+          <h3 class="font-semibold mb-2">In Progress</h3>
+          <div id="inprogress-tasks" class="min-h-[100px] space-y-2"></div>
+        </div>
+        <div class="bg-gray-100 p-3 rounded">
+          <h3 class="font-semibold mb-2">Done</h3>
+          <div id="done-tasks" class="min-h-[100px] space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- Create Task -->
+      <form id="create-task-form" class="mb-6 bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-semibold mb-2">Create Task</h3>
+        <input type="text" name="title" placeholder="Task title" required class="border p-2 w-full mb-2" />
+        <select id="task-project" name="project" class="border p-2 w-full mb-2" required>
+          <option value="">Select a Project</option>
+        </select>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Task</button>
+      </form>
+
+      <!-- Create Project -->
+      <form id="create-project-form" class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-semibold mb-2">Create Group Project</h3>
+        <input type="text" name="projectname" placeholder="Project name" required class="border p-2 w-full mb-2" />
+        <input type="text" name="members" placeholder="Member emails (comma-separated)" required class="border p-2 w-full mb-2" />
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Create Project</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/tabs.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
